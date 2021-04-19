@@ -68,11 +68,11 @@
 
 <p>You can use <a href="https://github.com/xuorig/graphql-schema_comparator">GraphQL::SchemaComparator</a> to check for breaking changes during development or CI. If you maintain a set of queries that typically run against your server, you may also utilize <code class="language-plaintext highlighter-rouge">GraphQL::StaticValidation</code> to validate these queries directly. A Rake task such as the one below can be used to identify changes that are incompatible with existing queries.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>namespace :graphql do
-  namespace :queries do
-    desc 'Validates GraphQL queries against the current schema'
-    task validate: [:environment] do
-      queries_file = 'test/fixtures/files/queries.json
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">namespace</span> <span class="ss">:graphql</span> <span class="k">do</span>
+  <span class="n">namespace</span> <span class="ss">:queries</span> <span class="k">do</span>
+    <span class="n">desc</span> <span class="s1">'Validates GraphQL queries against the current schema'</span>
+    <span class="n">task</span> <span class="ss">validate: </span><span class="p">[</span><span class="ss">:environment</span><span class="p">]</span> <span class="k">do</span>
+      <span class="n">queries_file</span> <span class="o">=</span> <span class="s1">'test/fixtures/files/queries.json
       queries = Oj.load(File.read(queries_file))
 
       Validate.run_validate(queries, MeistertaskSchema)
@@ -80,7 +80,7 @@
 
     module Validate
       def self.run_validate(queries, schema)
-        puts '⏳  Validating queries...'
+        puts '</span><span class="err">⏳</span>  <span class="no">Validating</span> <span class="n">queries</span><span class="o">...</span><span class="s1">'
         puts "\n"
 
         validator = GraphQL::StaticValidation::Validator.new(schema: schema)
@@ -93,24 +93,24 @@
                    .flatten
 
         if errors.empty?
-          puts '✅  All queries are valid'
+          puts '</span><span class="err">✅</span>  <span class="no">All</span> <span class="n">queries</span> <span class="n">are</span> <span class="n">valid</span><span class="s1">'
         else
           print_errors(errors)
         end
       end
 
       def self.print_errors(errors)
-        puts 'Detected the following errors:'
+        puts '</span><span class="no">Detected</span> <span class="n">the</span> <span class="n">following</span> <span class="n">errors</span><span class="ss">:'
         puts "\n"
 
         errors.each do |error|
-          path = error.path.join(', ')
-          puts "❌  #{path}: #{error.message}"
-        end
-      end
-    end
-  end
-end
+          path = error.path.join('</span><span class="p">,</span> <span class="err">'</span><span class="p">)</span>
+          <span class="nb">puts</span> <span class="s2">"❌  </span><span class="si">#{</span><span class="n">path</span><span class="si">}</span><span class="s2">: </span><span class="si">#{</span><span class="n">error</span><span class="p">.</span><span class="nf">message</span><span class="si">}</span><span class="s2">"</span>
+        <span class="k">end</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 </code></pre></div></div>
 
 </div>
