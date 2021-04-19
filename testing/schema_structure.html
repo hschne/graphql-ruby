@@ -66,7 +66,7 @@
 
 <h2 id="automatically-check-for-breaking-changes">Automatically check for breaking changes</h2>
 
-<p>You can use <a href="https://github.com/xuorig/graphql-schema_comparator">GraphQL::SchemaComparator</a> to check for breaking changes during development or CI. If you maintain a set of queries that typically run against your server, you may also utilize <code class="language-plaintext highlighter-rouge">GraphQL::StaticValidation</code> to validate these queries directly. A Rake task such as the one below can be used to identify changes that are incompatible with existing queries.</p>
+<p>You can use <a href="https://github.com/xuorig/graphql-schema_comparator">GraphQL::SchemaComparator</a> to check for breaking changes during development or CI. If you maintain a dump of queries that typically run against your server, you may also utilize <code class="language-plaintext highlighter-rouge">GraphQL::StaticValidation</code> to validate these queries directly. A Rake task such as the one below can be used to identify changes that are incompatible with existing queries.</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">namespace</span> <span class="ss">:graphql</span> <span class="k">do</span>
   <span class="n">namespace</span> <span class="ss">:queries</span> <span class="k">do</span>
@@ -75,7 +75,7 @@
       <span class="n">queries_file</span> <span class="o">=</span> <span class="s1">'test/fixtures/files/queries.json
       queries = Oj.load(File.read(queries_file))
 
-      Validate.run_validate(queries, MeistertaskSchema)
+      Validate.run_validate(queries, MySchema)
     end
 
     module Validate
